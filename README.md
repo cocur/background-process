@@ -1,6 +1,8 @@
 BcBackgroundProcess
 ===================
 
+[![Build Status](https://travis-ci.org/braincrafted/background-process.png?branch=master)](https://travis-ci.org/braincrafted/background-process)
+
 Allows to run background process in PHP.
 
 By [Florian Eckerstorfer](http://florianeckerstorfer.com).
