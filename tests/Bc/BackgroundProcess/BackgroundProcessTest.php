@@ -1,11 +1,21 @@
 <?php
+/**
+ * This file is part of BcBackgroundProcess.
+ *
+ * (c) 2013 Florian Eckerstorfer
+ */
 
 namespace Bc\BackgroundProcess;
 
 /**
  * BackgroundProcessTest
  *
- * @group functional
+ * @category  Tests
+ * @package   BcBackgroundProcess
+ * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
+ * @copyright 2013 Florian Eckerstorfer
+ * @license   http://opensource.org/licenses/MIT The MIT License
+ * @group     functional
  */
 class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
 {

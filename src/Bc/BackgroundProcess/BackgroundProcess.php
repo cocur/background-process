@@ -1,16 +1,48 @@
 <?php
+/**
+ * This file is part of BcBackgroundProcess.
+ *
+ * (c) 2013 Florian Eckerstorfer
+ */
+
 namespace Bc\BackgroundProcess;
 
+/**
+ * BackgroundProcess
+ *
+ * Runs a process in the background.
+ *
+ * @package   BcBackgroundProcess
+ * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
+ * @copyright 2013 Florian Eckerstorfer
+ * @license   http://opensource.org/licenses/MIT The MIT License
+ * @link      http://braincrafted.com/php-background-processes/ Running background processes in PHP
+ */
 class BackgroundProcess
 {
+    /** @var string */
     private $command;
+
+    /** @var integer */
     private $pid;
 
+    /**
+     * Constructor.
+     *
+     * @param string $command The command to execute
+     */
     public function __construct($command)
     {
         $this->command = $command;
     }
 
+    /**
+     * Runs the command in a background process.
+     *
+     * @param string $outputFile File to write the output of the process to; defaults to /dev/null
+     *
+     * @return void
+     */
     public function run($outputFile = '/dev/null')
     {
         $this->pid = shell_exec(sprintf(
@@ -20,6 +52,11 @@ class BackgroundProcess
         ));
     }
 
+    /**
+     * Returns if the process is currently running.
+     *
+     * @return boolean TRUE if the process is running, FALSE if not.
+     */
     public function isRunning()
     {
         try {
@@ -32,6 +69,11 @@ class BackgroundProcess
         return false;
     }
 
+    /**
+     * Returns the ID of the process.
+     *
+     * @return integer The ID of the process
+     */
     public function getPid()
     {
         return $this->pid;
