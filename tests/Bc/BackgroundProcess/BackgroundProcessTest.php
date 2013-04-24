@@ -10,7 +10,7 @@ namespace Bc\BackgroundProcess;
 /**
  * BackgroundProcessTest
  *
- * @category  Tests
+ * @category  Test
  * @package   BcBackgroundProcess
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2013 Florian Eckerstorfer
