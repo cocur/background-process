@@ -7,6 +7,17 @@ Allows to run background process in PHP.
 
 By [Florian Eckerstorfer](http://florianeckerstorfer.com).
 
+Installation
+------------
+
+The recommended way of installing BcBackgroundProcess is through [Composer](http://getcomposer.org):
+
+    {
+        "require": {
+            "braincrafted/background-process": "dev-master"
+        }
+    }
+
 Usage
 -----
 
