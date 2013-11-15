@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of BcBackgroundProcess.
+ * This file is part of BraincraftedBackgroundProcess.
  *
  * (c) 2013 Florian Eckerstorfer
  */

@@ -1,17 +1,17 @@
 <?php
 /**
- * This file is part of BcBackgroundProcess.
+ * This file is part of BraincraftedBackgroundProcess.
  *
  * (c) 2013 Florian Eckerstorfer
  */
 
-namespace Bc\BackgroundProcess;
+namespace Braincrafted\BackgroundProcess;
 
 /**
  * FactoryTest
  *
  * @category  Test
- * @package   BcBackgroundProcess
+ * @package   BraincraftedBackgroundProcess
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2013 Florian Eckerstorfer
  * @license   http://opensource.org/licenses/MIT The MIT License
@@ -21,13 +21,13 @@ namespace Bc\BackgroundProcess;
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
     /** @var string */
-    private $mockClass = 'Bc\BackgroundProcess\MockBackgroundProcess';
+    private $mockClass = 'Braincrafted\BackgroundProcess\MockBackgroundProcess';
 
     /**
      * Tests the <code>newProcess</code> method.
      *
-     * @covers Bc\BackgroundProcess\Factory::__construct()
-     * @covers Bc\BackgroundProcess\Factory::newProcess()
+     * @covers Braincrafted\BackgroundProcess\Factory::__construct()
+     * @covers Braincrafted\BackgroundProcess\Factory::newProcess()
      */
     public function testNewProcess()
     {

@@ -1,16 +1,16 @@
 <?php
 /**
- * This file is part of BcBackgroundProcess.
+ * This file is part of BraincraftedBackgroundProcess.
  *
  * (c) 2013 Florian Eckerstorfer
  */
 
-namespace Bc\BackgroundProcess;
+namespace Braincrafted\BackgroundProcess;
 
 /**
  * Factory to create BackgroundProcess objects.
  *
- * @package   BcBackgroundProcess
+ * @package   BraincraftedBackgroundProcess
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2013 Florian Eckerstorfer
  * @license   http://opensource.org/licenses/MIT The MIT License

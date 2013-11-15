@@ -4,6 +4,6 @@
         "phpunit/phpunit": "3.7.x"
     },
     "autoload": {
-        "psr-0": {"Bc\\BackgroundProcess": "src/"}
+        "psr-0": {"Braincrafted\\BackgroundProcess": "src/"}
     }
 }

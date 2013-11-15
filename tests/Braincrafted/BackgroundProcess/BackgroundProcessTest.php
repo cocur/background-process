@@ -1,17 +1,17 @@
 <?php
 /**
- * This file is part of BcBackgroundProcess.
+ * This file is part of BraincraftedBackgroundProcess.
  *
  * (c) 2013 Florian Eckerstorfer
  */
 
-namespace Bc\BackgroundProcess;
+namespace Braincrafted\BackgroundProcess;
 
 /**
  * BackgroundProcessTest
  *
  * @category  Test
- * @package   BcBackgroundProcess
+ * @package   BraincraftedBackgroundProcess
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2013 Florian Eckerstorfer
  * @license   http://opensource.org/licenses/MIT The MIT License
@@ -22,10 +22,10 @@ class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests running a background process.
      *
-     * @covers Bc\BackgroundProcess\BackgroundProcess::__construct()
-     * @covers Bc\BackgroundProcess\BackgroundProcess::run()
-     * @covers Bc\BackgroundProcess\BackgroundProcess::isRunning()
-     * @covers Bc\BackgroundProcess\BackgroundProcess::getPid()
+     * @covers Braincrafted\BackgroundProcess\BackgroundProcess::__construct()
+     * @covers Braincrafted\BackgroundProcess\BackgroundProcess::run()
+     * @covers Braincrafted\BackgroundProcess\BackgroundProcess::isRunning()
+     * @covers Braincrafted\BackgroundProcess\BackgroundProcess::getPid()
      */
     public function testRun()
     {

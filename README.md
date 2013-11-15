@@ -1,4 +1,4 @@
-BcBackgroundProcess
+BraincraftedBackgroundProcess
 ===================
 
 [![Build Status](https://travis-ci.org/braincrafted/background-process.png?branch=master)](https://travis-ci.org/braincrafted/background-process)
@@ -10,7 +10,7 @@ By [Florian Eckerstorfer](http://florianeckerstorfer.com).
 Installation
 ------------
 
-The recommended way of installing BcBackgroundProcess is through [Composer](http://getcomposer.org):
+The recommended way of installing BraincraftedBackgroundProcess is through [Composer](http://getcomposer.org):
 
     {
         "require": {
@@ -25,7 +25,7 @@ The following example will execute the command `sleep 5` in the background. Thus
 
     <?php
 
-    use Bc\BackgroundProcess\BackgroundProcess;
+    use Braincrafted\BackgroundProcess\BackgroundProcess;
 
     $process = new BackgroundProcess('sleep 5');
     $process->run();
@@ -34,7 +34,7 @@ It is also possible to retrieve the process ID and if a process is running:
 
     <?php
 
-    use Bc\BackgroundProcess\BackgroundProcess;
+    use Braincrafted\BackgroundProcess\BackgroundProcess;
 
     $process = new BackgroundProcess('sleep 5');
     $process->run();

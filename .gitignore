@@ -1,3 +1,4 @@
 vendor/
 docs/generated
 phpunit.xml
+composer.lock
