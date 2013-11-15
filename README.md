@@ -48,6 +48,14 @@ It is also possible to retrieve the process ID and if a process is running:
 
 *Please note: If the parent process continues to run while the child process(es) run(s) in the background you should use a more robust solution, for example, the [Symfony Process](https://github.com/symfony/Process) component.*
 
+
+Changelog
+---------
+
+### Version 0.3 (15 November 2013)
+
+- Changed namespace to `Braincrafted`
+
 License
 -------
 
