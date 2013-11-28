@@ -12,39 +12,45 @@ Installation
 
 The recommended way of installing BraincraftedBackgroundProcess is through [Composer](http://getcomposer.org):
 
-    {
-        "require": {
-            "braincrafted/background-process": "dev-master"
-        }
+```json
+{
+    "require": {
+        "braincrafted/background-process": "dev-master"
     }
+}
+```
 
 Usage
 -----
 
 The following example will execute the command `sleep 5` in the background. Thus, if you run the following script either in the browser or in the command line it will instantley finish executing.
 
-    <?php
+```php
+<?php
 
-    use Braincrafted\BackgroundProcess\BackgroundProcess;
+use Braincrafted\BackgroundProcess\BackgroundProcess;
 
-    $process = new BackgroundProcess('sleep 5');
-    $process->run();
+$process = new BackgroundProcess('sleep 5');
+$process->run();
+```
 
 It is also possible to retrieve the process ID and if a process is running:
 
-    <?php
+```php
+<?php
 
-    use Braincrafted\BackgroundProcess\BackgroundProcess;
+use Braincrafted\BackgroundProcess\BackgroundProcess;
 
-    $process = new BackgroundProcess('sleep 5');
-    $process->run();
+$process = new BackgroundProcess('sleep 5');
+$process->run();
 
-    echo sprintf('Crunching numbers in process %d', $process->getPid());
-    while ($process->isRunning()) {
-        echo '.';
-        sleep(1);
-    }
-    echo "\nDone.\n"
+echo sprintf('Crunching numbers in process %d', $process->getPid());
+while ($process->isRunning()) {
+    echo '.';
+    sleep(1);
+}
+echo "\nDone.\n"
+```
 
 *Please note: If the parent process continues to run while the child process(es) run(s) in the background you should use a more robust solution, for example, the [Symfony Process](https://github.com/symfony/Process) component.*
 
