@@ -70,6 +70,23 @@ class BackgroundProcess
     }
 
     /**
+     * Stops the process.
+     *
+     * @return boolean `true` if the processes was stopped, `false` otherwise.
+     */
+    public function stop()
+    {
+        try {
+            $result = shell_exec(sprintf('kill %d 2>&1', $this->pid));
+            if (!preg_match('/No such process/', $result)) {
+                return true;
+            }
+        } catch (Exception $e) {}
+
+        return false;
+    }
+
+    /**
      * Returns the ID of the process.
      *
      * @return integer The ID of the process
