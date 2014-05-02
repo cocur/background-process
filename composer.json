@@ -1,9 +1,11 @@
 {
     "name": "cocur/background-process",
     "require-dev": {
-        "phpunit/phpunit": "3.7.x"
+        "phpunit/phpunit": "~4.0"
     },
     "autoload": {
-        "psr-0": {"Cocur\\BackgroundProcess": "src/"}
+        "psr-4": {
+            "Cocur\\BackgroundProcess\\": "src/"
+        }
     }
 }

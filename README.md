@@ -57,6 +57,7 @@ Changelog
 
 - Moved repository to Cocur organization
 - Changed namespace to `Cocur`
+- PSR-4 compatible namespace
 
 ### Version 0.3 (15 November 2013)
 
