@@ -1,4 +1,4 @@
-/docs/generated
+/build/logs/
 /vendor/
 /composer.lock
 /*.sublime-project
