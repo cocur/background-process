@@ -1,24 +1,23 @@
-BraincraftedBackgroundProcess
+cocur/background-process
 ===================
 
-[![Build Status](https://travis-ci.org/braincrafted/background-process.png?branch=master)](https://travis-ci.org/braincrafted/background-process)
+> Start processes in the background that continue running when the PHP process exists.
 
-Allows to run background process in PHP.
+[![Build Status](https://travis-ci.org/cocur/background-process.png?branch=master)](https://travis-ci.org/cocur/background-process)
+
 
 By [Florian Eckerstorfer](http://florianeckerstorfer.com).
 
 Installation
 ------------
 
-The recommended way of installing BraincraftedBackgroundProcess is through [Composer](http://getcomposer.org):
+You can install *cocur/background-process* using [Composer](http://getcomposer.org):
 
-```json
-{
-    "require": {
-        "braincrafted/background-process": "dev-master"
-    }
-}
+```shell
+$ composer require cocur/background-process:@stable
 ```
+
+*In a production environment you should replace `@stable` with the [version](https://github.com/cocur/watchman/releases) you want to use.*
 
 Usage
 -----
@@ -26,20 +25,16 @@ Usage
 The following example will execute the command `sleep 5` in the background. Thus, if you run the following script either in the browser or in the command line it will instantley finish executing.
 
 ```php
-<?php
-
-use Braincrafted\BackgroundProcess\BackgroundProcess;
+use Cocur\BackgroundProcess\BackgroundProcess;
 
 $process = new BackgroundProcess('sleep 5');
 $process->run();
 ```
 
-It is also possible to retrieve the process ID and if a process is running:
+You can retrieve the process ID (PID) of the process and check if it's running:
 
 ```php
-<?php
-
-use Braincrafted\BackgroundProcess\BackgroundProcess;
+use Cocur\BackgroundProcess\BackgroundProcess;
 
 $process = new BackgroundProcess('sleep 5');
 $process->run();
@@ -57,6 +52,11 @@ echo "\nDone.\n"
 
 Changelog
 ---------
+
+### Version 0.4 (2 April 2014)
+
+- Moved repository to Cocur organization
+- Changed namespace to `Cocur`
 
 ### Version 0.3 (15 November 2013)
 
@@ -88,7 +88,3 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ```
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/braincrafted/background-process/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
