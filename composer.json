@@ -1,5 +1,6 @@
 {
     "name": "cocur/background-process",
+    "description": "Start processes in the background that continue running when the PHP process exists.",
     "require-dev": {
         "phpunit/phpunit": "~4.0"
     },
