@@ -1,5 +1,19 @@
 language: php
+
 php:
     - 5.4
+    - 5.5
+    - 5.6
+    - hhvm
+
 before_script:
-    - composer install
+  - wget http://getcomposer.org/composer.phar
+  - php composer.phar --prefer-source --dev install
+  - cp phpunit.xml.dist phpunit.xml
+
+script:
+  - mkdir -p build/logs
+  - ./vendor/bin/phpunit -c ./
+
+after_script:
+  - php vendor/bin/coveralls -v
