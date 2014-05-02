@@ -3,10 +3,10 @@ cocur/background-process
 
 > Start processes in the background that continue running when the PHP process exists.
 
-[![Build Status](https://travis-ci.org/cocur/background-process.png?branch=master)](https://travis-ci.org/cocur/background-process)
+[![Latest Stable Version](http://img.shields.io/packagist/v/cocur/background-process.svg)](https://packagist.org/packages/cocur/background-process)
+[![Build Status](http://img.shields.io/travis/cocur/background-process.svg)](https://travis-ci.org/cocur/background-process)
+[![Code Coverage](http://img.shields.io/coveralls/cocur/background-process.svg)](https://coveralls.io/r/cocur/background-process)
 
-
-By [Florian Eckerstorfer](http://florianeckerstorfer.com).
 
 Installation
 ------------
@@ -18,6 +18,7 @@ $ composer require cocur/background-process:@stable
 ```
 
 *In a production environment you should replace `@stable` with the [version](https://github.com/cocur/watchman/releases) you want to use.*
+
 
 Usage
 -----
@@ -47,6 +48,15 @@ while ($process->isRunning()) {
 echo "\nDone.\n"
 ```
 
+If the process runs you can stop it:
+
+```
+// ...
+if ($process->isRunning()) {
+    $process->stop();
+}
+```
+
 *Please note: If the parent process continues to run while the child process(es) run(s) in the background you should use a more robust solution, for example, the [Symfony Process](https://github.com/symfony/Process) component.*
 
 
@@ -58,34 +68,22 @@ Changelog
 - Moved repository to Cocur organization
 - Changed namespace to `Cocur`
 - PSR-4 compatible namespace
+- [#3](https://github.com/cocur/background-process/pull/3) Added `BackgroundProcess::stop()` (by florianeckerstorfer)
 
 ### Version 0.3 (15 November 2013)
 
 - Changed namespace to `Braincrafted`
 
+
+Author
+------
+
+[**Florian Eckerstorfer**](http://florian.ec)
+
+- [Twitter](http://twitter.com/Florian_)
+
+
 License
 -------
 
-```
-The MIT License (MIT)
-
-Copyright (c) 2013 Florian Eckerstorfer
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-```
+The MIT license applies to **cocur/background-process**. For the full copyright and license information, please view the LICENSE file distributed with this source code.
