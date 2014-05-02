@@ -1,20 +1,20 @@
 <?php
 /**
- * This file is part of BraincraftedBackgroundProcess.
+ * This file is part of cocur/background-process.
  *
- * (c) 2013 Florian Eckerstorfer
+ * (c) 2013-2014 Florian Eckerstorfer
  */
 
-namespace Braincrafted\BackgroundProcess;
+namespace Cocur\BackgroundProcess;
 
 /**
  * BackgroundProcess
  *
  * Runs a process in the background.
  *
- * @package   BraincraftedBackgroundProcess
+ * @package   cocur/background-process
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
- * @copyright 2013 Florian Eckerstorfer
+ * @copyright 2013-2014 Florian Eckerstorfer
  * @license   http://opensource.org/licenses/MIT The MIT License
  * @link      http://braincrafted.com/php-background-processes/ Running background processes in PHP
  */

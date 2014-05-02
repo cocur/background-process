@@ -2,14 +2,14 @@
 
 <phpunit bootstrap="tests/bootstrap.php" colors="true">
     <testsuites>
-        <testsuite name="BraincraftedBackgroundProcess Test Suite">
-            <directory>tests/Braincrafted/BackgroundProcess/</directory>
+        <testsuite name="cocur/background-process Test Suite">
+            <directory>tests/Cocur/BackgroundProcess/</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory suffix=".php">src/Braincrafted/BackgroundProcess/</directory>
+            <directory suffix=".php">src/Cocur/BackgroundProcess/</directory>
         </whitelist>
     </filter>
 </phpunit>

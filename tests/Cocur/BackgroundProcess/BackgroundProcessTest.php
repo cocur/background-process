@@ -1,19 +1,19 @@
 <?php
 /**
- * This file is part of BraincraftedBackgroundProcess.
+ * This file is part of cocur/background-process.
  *
- * (c) 2013 Florian Eckerstorfer
+ * (c) 2013-2014 Florian Eckerstorfer
  */
 
-namespace Braincrafted\BackgroundProcess;
+namespace Cocur\BackgroundProcess;
 
 /**
  * BackgroundProcessTest
  *
  * @category  Test
- * @package   BraincraftedBackgroundProcess
+ * @package   cocur/background-process
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
- * @copyright 2013 Florian Eckerstorfer
+ * @copyright 2013-2104 Florian Eckerstorfer
  * @license   http://opensource.org/licenses/MIT The MIT License
  * @group     functional
  */
@@ -22,10 +22,10 @@ class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests running a background process.
      *
-     * @covers Braincrafted\BackgroundProcess\BackgroundProcess::__construct()
-     * @covers Braincrafted\BackgroundProcess\BackgroundProcess::run()
-     * @covers Braincrafted\BackgroundProcess\BackgroundProcess::isRunning()
-     * @covers Braincrafted\BackgroundProcess\BackgroundProcess::getPid()
+     * @covers Cocur\BackgroundProcess\BackgroundProcess::__construct()
+     * @covers Cocur\BackgroundProcess\BackgroundProcess::run()
+     * @covers Cocur\BackgroundProcess\BackgroundProcess::isRunning()
+     * @covers Cocur\BackgroundProcess\BackgroundProcess::getPid()
      */
     public function testRun()
     {

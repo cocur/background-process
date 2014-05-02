@@ -1,4 +1,6 @@
-vendor/
-docs/generated
-phpunit.xml
-composer.lock
+/docs/generated
+/vendor/
+/composer.lock
+/*.sublime-project
+/*.sublime-workspace
+/phpunit.xml
