@@ -45,7 +45,7 @@ while ($process->isRunning()) {
     echo '.';
     sleep(1);
 }
-echo "\nDone.\n"
+echo "\nDone.\n";
 ```
 
 If the process runs you can stop it:
