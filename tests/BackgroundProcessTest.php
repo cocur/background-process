@@ -27,14 +27,17 @@ class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
      * @covers Cocur\BackgroundProcess\BackgroundProcess::isRunning()
      * @covers Cocur\BackgroundProcess\BackgroundProcess::getPid()
      * @covers Cocur\BackgroundProcess\BackgroundProcess::stop()
+     * @covers Cocur\BackgroundProcess\BackgroundProcess::isProcessRunning()
      */
     public function testRun()
     {
         $process = new BackgroundProcess('sleep 5');
         $this->assertFalse($process->isRunning(), 'process should not run');
+        $this->assertFalse(BackgroundProcess::isProcessRunning($process->getPid()), 'process (by PID) should not run');
         $process->run();
         $this->assertNotNull($process->getPid(), 'process should have a pid');
         $this->assertTrue($process->isRunning(), 'process should run');
+        $this->assertTrue(BackgroundProcess::isProcessRunning($process->getPid()), 'process (by PID) should run');
         $this->assertTrue($process->stop(), 'stop process');
         $this->assertFalse($process->isRunning(), 'processes should not run anymore');
         $this->assertFalse($process->stop(), 'cannot stop process that is not running');
