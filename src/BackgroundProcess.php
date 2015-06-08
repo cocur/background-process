@@ -103,7 +103,7 @@ class BackgroundProcess
      */
     public static function isProcessRunning($pid)
     {
-        $process = new static;
+        $process = new static(null);
         $process->pid = $pid;
         
         return $process->isRunning();
