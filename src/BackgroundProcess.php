@@ -26,6 +26,9 @@ class BackgroundProcess
     /** @var integer */
     private $pid;
 
+	/** @var $serverOS int */
+	protected $serverOS;
+
     /**
      * Constructor.
      *
@@ -34,22 +37,32 @@ class BackgroundProcess
     public function __construct($command)
     {
         $this->command = $command;
+	    $this->serverOS = $this->serverOS();
     }
 
     /**
      * Runs the command in a background process.
      *
      * @param string $outputFile File to write the output of the process to; defaults to /dev/null
+     * currently $outputFile has no effect when used in conjunction with a Windows server
      *
      * @return void
      */
     public function run($outputFile = '/dev/null')
     {
-        $this->pid = shell_exec(sprintf(
-            '%s > %s 2>&1 & echo $!',
-            $this->command,
-            $outputFile
-        ));
+	    switch($this->serverOS){
+		    case 1:
+				$cmd = "%s &";
+			    shell_exec(sprintf($cmd, $this->command, $outputFile));
+			    break;
+		    case 2:
+			    $cmd = "%s > %s 2>&1 & echo $!";
+			    $this->pid = shell_exec(sprintf($cmd, $this->command, $outputFile));
+			    break;
+		    default:
+			    die("we don't recognise you're server's OS");
+			    break;
+	    }
     }
 
     /**
@@ -95,4 +108,21 @@ class BackgroundProcess
     {
         return $this->pid;
     }
+
+	/**
+	 * serverOS() protected method
+	 * returns integer, 1 if Windows, 2 if Linux, 3 if other
+	 * 
+	 * @return int
+	 */
+	protected function serverOS()
+	{
+		$sys = strtoupper(PHP_OS);
+
+		if(substr($sys,0,3) == "WIN") { $os = 1; }
+		elseif($sys == "LINUX") { $os = 2; }
+		else { $os = 3; }
+
+		return $os;
+	}
 }
