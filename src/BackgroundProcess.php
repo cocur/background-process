@@ -56,6 +56,7 @@ class BackgroundProcess
 			    shell_exec(sprintf($cmd, $this->command, $outputFile));
 			    break;
 		    case 2:
+			case 3:
 			    $cmd = "%s > %s 2>&1 & echo $!";
 			    $this->pid = shell_exec(sprintf($cmd, $this->command, $outputFile));
 			    break;
@@ -112,16 +113,17 @@ class BackgroundProcess
 	/**
 	 * serverOS() protected method
 	 * returns integer, 1 if Windows, 2 if Linux, 3 if other
-	 * 
+	 *
 	 * @return int
 	 */
 	protected function serverOS()
 	{
 		$sys = strtoupper(PHP_OS);
 
-		if(substr($sys,0,3) == "WIN") { $os = 1; }
-		elseif($sys == "LINUX") { $os = 2; }
-		else { $os = 3; }
+		if(substr($sys,0,3) == "WIN") { $os = 1; } #Windows
+		elseif($sys == "Linux") { $os = 2; } #Linux
+		elseif($sys == "Darwin") { $os = 3; } #Mac OS X
+		else { $os = 4; }
 
 		return $os;
 	}
