@@ -121,8 +121,8 @@ class BackgroundProcess
 		$sys = strtoupper(PHP_OS);
 
 		if(substr($sys,0,3) == "WIN") { $os = 1; } #Windows
-		elseif($sys == "Linux") { $os = 2; } #Linux
-		elseif($sys == "Darwin") { $os = 3; } #Mac OS X
+		elseif($sys == "LINUX") { $os = 2; } #Linux
+        elseif($sys == "DARWIN") { $os = 3; } #Mac OS X
 		else { $os = 4; }
 
 		return $os;
