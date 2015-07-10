@@ -3,7 +3,7 @@
 /**
  * This file is part of cocur/background-process.
  *
- * (c) 2013-2014 Florian Eckerstorfer
+ * (c) 2013-2015 Florian Eckerstorfer
  */
 
 namespace Cocur\BackgroundProcess;
@@ -14,7 +14,7 @@ namespace Cocur\BackgroundProcess;
  * Runs a process in the background.
  *
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
- * @copyright 2013-2014 Florian Eckerstorfer
+ * @copyright 2013-2015 Florian Eckerstorfer
  * @license   http://opensource.org/licenses/MIT The MIT License
  *
  * @link      http://braincrafted.com/php-background-processes/ Running background processes in PHP
@@ -60,8 +60,11 @@ class BackgroundProcess
                 $this->pid = shell_exec(sprintf($cmd, $this->command, $outputFile));
                 break;
             default:
-                die("we don't recognise you're server's OS");
-                break;
+                throw new \RuntimeException(sprintf(
+                    'Could not execute command "%s" because operating system "%s" is not supported by Cocur\BackgroundProcess.',
+                    $this->command,
+                    PHP_OS
+                ));
         }
     }
 
@@ -112,25 +115,19 @@ class BackgroundProcess
     }
 
     /**
-     * serverOS() protected method
-     * returns integer, 1 if Windows, 2 if Linux, 3 if other.
-     *
-     * @return int
+     * @return int 1 Windows, 2 Linux, 3 Mac OS X, 4 unknown
      */
     protected function serverOS()
     {
-        $sys = strtoupper(PHP_OS);
+        $os = strtoupper(PHP_OS);
 
-        if (substr($sys, 0, 3) == 'WIN') {
+        if (substr($os, 0, 3) === 'WIN') {
             $os = 1;
-        } #Windows
-        elseif ($sys == 'LINUX') {
+        } else if ($os == 'LINUX') {
             $os = 2;
-        } #Linux
-        elseif ($sys == 'DARWIN') {
+        } else if ($os == 'DARWIN') { // Mac OS X
             $os = 3;
-        } #Mac OS X
-        else {
+        } else {
             $os = 4;
         }
 
