@@ -123,7 +123,7 @@ class BackgroundProcess
 
         if (substr($os, 0, 3) === 'WIN') {
             $os = 1;
-        } else if ($os == 'LINUX') {
+        } else if ($os == 'LINUX' || $os == 'FREEBSD') {
             $os = 2;
         } else if ($os == 'DARWIN') { // Mac OS X
             $os = 3;
