@@ -53,7 +53,8 @@ class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
     public function isRunningShouldReturnIfProcessIsRunning()
     {
         if (preg_match('/^WIN/', PHP_OS)) {
-            $this->markTestSkipped('Checking if a process is running is not supported on Windows.');
+            $this->markTestSkipped('Cocur\BackgroundProcess\BackgroundProcess::isRunning() is not supported on '.
+                                   'Windows.');
 
             return;
         }
@@ -67,13 +68,32 @@ class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Cocur\BackgroundProcess\BackgroundProcess::isRunning()
+     * @exceptedException \RuntimeException
+     */
+    public function isRunningShouldThrowExceptionIfWindows()
+    {
+        if (!preg_match('/^WIN/', PHP_OS)) {
+            $this->markTestSkipped('Cocur\BackgroundProcess\BackgroundProcess::isRunning() is supported on *nix '.
+                                   'systems and does not need to throw an exception.');
+
+            return;
+        }
+
+        $process = new BackgroundProcess('sleep 1');
+        $process->isRunning();
+    }
+
+    /**
+     * @test
      * @covers Cocur\BackgroundProcess\BackgroundProcess::run()
      * @covers Cocur\BackgroundProcess\BackgroundProcess::getOS()
      */
     public function runShouldWriteOutputToFile()
     {
         if (preg_match('/^WIN/', PHP_OS)) {
-            $this->markTestSkipped('Writing output to file is not supported on Windows.');
+            $this->markTestSkipped('Cocur\BackgroundProcess\BackgroundProcess::run() does not support writing output '.
+                                   'into a file on Windows.');
 
             return;
         }
@@ -96,7 +116,7 @@ class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
     public function getPidShouldReturnPidOfProcess()
     {
         if (preg_match('/^WIN/', PHP_OS)) {
-            $this->markTestSkipped('Checking PID is not supported on Windows.');
+            $this->markTestSkipped('Cocur\BackgroundProcess\BackgroundProcess::getPid() is not supported on Windows.');
 
             return;
         }
@@ -109,13 +129,31 @@ class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Cocur\BackgroundProcess\BackgroundProcess::getPid()
+     * @exceptedException \RuntimeException
+     */
+    public function getPidShouldThrowExceptionIfWindows()
+    {
+        if (!preg_match('/^WIN/', PHP_OS)) {
+            $this->markTestSkipped('Cocur\BackgroundProcess\BackgroundProcess::getPid() is supported on *nix systems '.
+                                   'and does not need to throw an exception.');
+
+            return;
+        }
+
+        $process = new BackgroundProcess('sleep 1');
+        $process->getPid();
+    }
+
+    /**
+     * @test
      * @covers Cocur\BackgroundProcess\BackgroundProcess::stop()
      * @covers Cocur\BackgroundProcess\BackgroundProcess::getOS()
      */
     public function stopShouldStopRunningProcess()
     {
         if (preg_match('/^WIN/', PHP_OS)) {
-            $this->markTestSkipped('Stopping a process is not supported on Windows.');
+            $this->markTestSkipped('Cocur\BackgroundProcess\BackgroundProcess::stop() is not supported on Windows.');
 
             return;
         }
@@ -125,5 +163,23 @@ class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($process->stop());
         $this->assertFalse($process->isRunning());
+    }
+
+    /**
+     * @test
+     * @covers Cocur\BackgroundProcess\BackgroundProcess::stop()
+     * @exceptedException \RuntimeException
+     */
+    public function stopShouldThrowExceptionIfWindows()
+    {
+        if (!preg_match('/^WIN/', PHP_OS)) {
+            $this->markTestSkipped('Cocur\BackgroundProcess\BackgroundProcess::stop() is supported on *nix systems '.
+                                   'and does not need to throw an exception.');
+
+            return;
+        }
+
+        $process = new BackgroundProcess('sleep 1');
+        $process->stop();
     }
 }

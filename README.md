@@ -1,5 +1,5 @@
 cocur/background-process
-===================
+========================
 
 > Start processes in the background that continue running when the PHP process exists.
 
@@ -12,19 +12,18 @@ cocur/background-process
 Installation
 ------------
 
-You can install *cocur/background-process* using [Composer](http://getcomposer.org):
+You can install Cocur\BackgroundProcess using [Composer](http://getcomposer.org):
 
 ```shell
-$ composer require cocur/background-process:@stable
+$ composer require cocur/background-process
 ```
-
-*In a production environment you should replace `@stable` with the [version](https://github.com/cocur/watchman/releases) you want to use.*
 
 
 Usage
 -----
 
-The following example will execute the command `sleep 5` in the background. Thus, if you run the following script either in the browser or in the command line it will instantley finish executing.
+The following example will execute the command `sleep 5` in the background. Thus, if you run the following script 
+either in the browser or in the command line it will finish executing instantly.
 
 ```php
 use Cocur\BackgroundProcess\BackgroundProcess;
@@ -58,11 +57,24 @@ if ($process->isRunning()) {
 }
 ```
 
-*Please note: If the parent process continues to run while the child process(es) run(s) in the background you should use a more robust solution, for example, the [Symfony Process](https://github.com/symfony/Process) component.*
+*Please note: If the parent process continues to run while the child process(es) run(s) in the background you should 
+use a more robust solution, for example, the [Symfony Process](https://github.com/symfony/Process) component.*
+
+### Windows Support
+
+Since Version 0.5 Cocur\BackgroundProcess has basic support for Windows included. However, support is very limited at
+this time. You can run processes in the background, but it is not possible to direct the output into a file and you
+can not retrieve the process ID (PID), check if a process is running and stop a running process.
+
+In practice, the following methods will throw an exception if called on a Windows system:
+
+- `Cocur\BackgroundProcess\BackgroundProcess::getPid()`
+- `Cocur\BackgroundProcess\BackgroundProcess::isRunning()`
+- `Cocur\BackgroundProcess\BackgroundProcess::stop()`
 
 
-Changelog
----------
+Change Log
+----------
 
 ### Version 0.4 (2 April 2014)
 
