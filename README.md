@@ -76,6 +76,10 @@ In practice, the following methods will throw an exception if called on a Window
 Change Log
 ----------
 
+### Version 0.5 (24 October 2015)
+
+- Added basic support for Windows
+
 ### Version 0.4 (2 April 2014)
 
 - Moved repository to Cocur organization
