@@ -8,6 +8,8 @@
 
 namespace Cocur\BackgroundProcess;
 
+use Exception;
+
 /**
  * BackgroundProcess.
  *
@@ -16,28 +18,33 @@ namespace Cocur\BackgroundProcess;
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2013-2015 Florian Eckerstorfer
  * @license   http://opensource.org/licenses/MIT The MIT License
- *
- * @link      http://braincrafted.com/php-background-processes/ Running background processes in PHP
+ * @link      https://florian.ec/articles/running-background-processes-in-php/ Running background processes in PHP
  */
 class BackgroundProcess
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $command;
 
-    /** @var int */
+    /**
+     * @var int
+     */
     private $pid;
 
-    /** @var $serverOS int */
+    /**
+     * @var int
+     */
     protected $serverOS;
 
     /**
-     * Constructor.
-     *
      * @param string $command The command to execute
+     *
+     * @codeCoverageIgnore
      */
     public function __construct($command)
     {
-        $this->command = $command;
+        $this->command  = $command;
         $this->serverOS = $this->serverOS();
     }
 
@@ -56,12 +63,13 @@ class BackgroundProcess
                 break;
             case 2:
             case 3:
-                $cmd = '%s > %s 2>&1 & echo $!';
+                $cmd       = '%s > %s 2>&1 & echo $!';
                 $this->pid = shell_exec(sprintf($cmd, $this->command, $outputFile));
                 break;
             default:
                 throw new \RuntimeException(sprintf(
-                    'Could not execute command "%s" because operating system "%s" is not supported by Cocur\BackgroundProcess.',
+                    'Could not execute command "%s" because operating system "%s" is not supported by '.
+                    'Cocur\BackgroundProcess.',
                     $this->command,
                     PHP_OS
                 ));
@@ -80,7 +88,7 @@ class BackgroundProcess
             if (count(preg_split("/\n/", $result)) > 2) {
                 return true;
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
         }
 
         return false;
@@ -98,7 +106,7 @@ class BackgroundProcess
             if (!preg_match('/No such process/', $result)) {
                 return true;
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
         }
 
         return false;
@@ -123,9 +131,9 @@ class BackgroundProcess
 
         if (substr($os, 0, 3) === 'WIN') {
             $os = 1;
-        } else if ($os == 'LINUX' || $os == 'FREEBSD') {
+        } else if ($os === 'LINUX' || $os === 'FREEBSD') {
             $os = 2;
-        } else if ($os == 'DARWIN') { // Mac OS X
+        } else if ($os === 'DARWIN') { // Mac OS X
             $os = 3;
         } else {
             $os = 4;
