@@ -69,7 +69,7 @@ class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Cocur\BackgroundProcess\BackgroundProcess::isRunning()
-     * @exceptedException \RuntimeException
+     * @expectedException \RuntimeException
      */
     public function isRunningShouldThrowExceptionIfWindows()
     {
@@ -130,7 +130,7 @@ class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Cocur\BackgroundProcess\BackgroundProcess::getPid()
-     * @exceptedException \RuntimeException
+     * @expectedException \RuntimeException
      */
     public function getPidShouldThrowExceptionIfWindows()
     {
@@ -168,7 +168,7 @@ class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Cocur\BackgroundProcess\BackgroundProcess::stop()
-     * @exceptedException \RuntimeException
+     * @expectedException \RuntimeException
      */
     public function stopShouldThrowExceptionIfWindows()
     {
