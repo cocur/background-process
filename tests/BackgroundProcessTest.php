@@ -64,7 +64,7 @@ class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        $process = new BackgroundProcess('sleep 1');
+        $process = new BackgroundProcess('sleep 3');
 
         $this->assertFalse($process->isRunning());
         $process->run();
