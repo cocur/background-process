@@ -6,7 +6,6 @@
  */
 
 namespace Cocur\BackgroundProcess;
-use org\bovigo\vfs\vfsStream;
 
 /**
  * BackgroundProcessTest
@@ -20,11 +19,6 @@ use org\bovigo\vfs\vfsStream;
  */
 class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-        vfsStream::setup('fixtures', null, ['test.txt' => null]);
-    }
-
     /**
      * @test
      * @covers Cocur\BackgroundProcess\BackgroundProcess::run()
