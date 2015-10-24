@@ -1,0 +1,1 @@
+echo ok > runShouldRunCommand.log

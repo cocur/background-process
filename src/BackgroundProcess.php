@@ -9,6 +9,7 @@
 namespace Cocur\BackgroundProcess;
 
 use Exception;
+use RuntimeException;
 
 /**
  * BackgroundProcess.
@@ -22,6 +23,10 @@ use Exception;
  */
 class BackgroundProcess
 {
+    const OS_WINDOWS = 1;
+    const OS_NIX     = 2;
+    const OS_OTHER   = 3;
+
     /**
      * @var string
      */
@@ -45,7 +50,7 @@ class BackgroundProcess
     public function __construct($command)
     {
         $this->command  = $command;
-        $this->serverOS = $this->serverOS();
+        $this->serverOS = $this->getOS();
     }
 
     /**
@@ -56,18 +61,15 @@ class BackgroundProcess
      */
     public function run($outputFile = '/dev/null')
     {
-        switch ($this->serverOS) {
-            case 1:
-                $cmd = '%s &';
-                shell_exec(sprintf($cmd, $this->command, $outputFile));
+        switch ($this->getOS()) {
+            case self::OS_WINDOWS:
+                shell_exec(sprintf('%s &', $this->command, $outputFile));
                 break;
-            case 2:
-            case 3:
-                $cmd       = '%s > %s 2>&1 & echo $!';
-                $this->pid = shell_exec(sprintf($cmd, $this->command, $outputFile));
+            case self::OS_NIX:
+                $this->pid = shell_exec(sprintf('%s > %s 2>&1 & echo $!', $this->command, $outputFile));
                 break;
             default:
-                throw new \RuntimeException(sprintf(
+                throw new RuntimeException(sprintf(
                     'Could not execute command "%s" because operating system "%s" is not supported by '.
                     'Cocur\BackgroundProcess.',
                     $this->command,
@@ -83,6 +85,9 @@ class BackgroundProcess
      */
     public function isRunning()
     {
+        $this->checkSupportingOS('Cocur\BackgroundProcess can only check if a process is running on *nix-based '.
+                                 'systems, such as Unix, Linux or Mac OS X. You are running "%s".');
+
         try {
             $result = shell_exec(sprintf('ps %d', $this->pid));
             if (count(preg_split("/\n/", $result)) > 2) {
@@ -101,6 +106,9 @@ class BackgroundProcess
      */
     public function stop()
     {
+        $this->checkSupportingOS('Cocur\BackgroundProcess can only stop a process on *nix-based systems, such as '.
+                                 'Unix, Linux or Mac OS X. You are running "%s".');
+
         try {
             $result = shell_exec(sprintf('kill %d 2>&1', $this->pid));
             if (!preg_match('/No such process/', $result)) {
@@ -119,26 +127,39 @@ class BackgroundProcess
      */
     public function getPid()
     {
+        $this->checkSupportingOS('Cocur\BackgroundProcess can only return the PID of a process on *nix-based systems, '.
+                                 'such as Unix, Linux or Mac OS X. You are running "%s".');
+
         return $this->pid;
     }
 
     /**
-     * @return int 1 Windows, 2 Linux, 3 Mac OS X, 4 unknown
+     * @return int
      */
-    protected function serverOS()
+    protected function getOS()
     {
         $os = strtoupper(PHP_OS);
 
         if (substr($os, 0, 3) === 'WIN') {
-            $os = 1;
-        } else if ($os === 'LINUX' || $os === 'FREEBSD') {
-            $os = 2;
-        } else if ($os === 'DARWIN') { // Mac OS X
-            $os = 3;
-        } else {
-            $os = 4;
+            return self::OS_WINDOWS;
+        } else if ($os === 'LINUX' || $os === 'FREEBSD' || $os === 'DARWIN') {
+            return self::OS_NIX;
         }
 
-        return $os;
+        return self::OS_OTHER;
+    }
+
+    /**
+     * @param string $message Exception message if the OS is not supported
+     *
+     * @throws RuntimeException if the operating system is not supported by Cocur\BackgroundProcess
+     *
+     * @codeCoverageIgnore
+     */
+    protected function checkSupportingOS($message)
+    {
+        if ($this->getOS() !== self::OS_NIX) {
+            throw new RuntimeException(sprintf($message, PHP_OS));
+        }
     }
 }

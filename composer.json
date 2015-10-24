@@ -5,7 +5,8 @@
     "keywords": ["process", "background", "unix"],
     "license": "MIT",
     "require-dev": {
-        "phpunit/phpunit": "~4.0"
+        "phpunit/phpunit": "~4.8",
+        "mikey179/vfsStream": "~1.6"
     },
     "autoload": {
         "psr-4": {
