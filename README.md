@@ -5,7 +5,8 @@ cocur/background-process
 
 [![Latest Stable Version](http://img.shields.io/packagist/v/cocur/background-process.svg)](https://packagist.org/packages/cocur/background-process)
 [![Build Status](http://img.shields.io/travis/cocur/background-process.svg)](https://travis-ci.org/cocur/background-process)
-[![Code Coverage](http://img.shields.io/coveralls/cocur/background-process.svg)](https://coveralls.io/r/cocur/background-process)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/odmyynd522vuef1y?svg=true)](https://ci.appveyor.com/project/florianeckerstorfer/background-process)
+[![Code Coverage](https://scrutinizer-ci.com/g/cocur/background-process/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/cocur/background-process/?branch=master)
 
 
 Installation
