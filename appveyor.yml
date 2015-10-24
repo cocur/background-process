@@ -12,7 +12,6 @@ init:
 environment:
   matrix:
     - COMPOSER_FLAGS: ""
-    - COMPOSER_FLAGS: --prefer-lowest --prefer-stable
 
 install:
   - cinst -y OpenSSL.Light
