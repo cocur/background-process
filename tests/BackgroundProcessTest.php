@@ -107,7 +107,7 @@ class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        $process = new BackgroundProcess('sleep 1');
+        $process = new BackgroundProcess('sleep 3');
         $process->run();
 
         $this->assertNotNull($process->getPid());
