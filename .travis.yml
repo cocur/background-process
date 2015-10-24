@@ -8,12 +8,12 @@ php:
 
 before_script:
   - wget http://getcomposer.org/composer.phar
+  - wget https://scrutinizer-ci.com/ocular.phar
   - php composer.phar --prefer-source --dev install
   - cp phpunit.xml.dist phpunit.xml
 
 script:
-  - mkdir -p build/logs
-  - ./vendor/bin/phpunit -c ./
+  - ./vendor/bin/phpunit -c ./ --coverage-clover=coverage.clover
 
 after_script:
-  - php vendor/bin/coveralls -v
+  - ./vendor/bin/phpunit -c ./ --coverage-clover=coverage.clover

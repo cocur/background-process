@@ -34,9 +34,9 @@ class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
     public function runShouldRunCommand()
     {
         if (preg_match('/^WIN/', PHP_OS)) {
-            $command = sprintf('cd %s\\fixtures; cmd.bat', __DIR__);
+            $command = sprintf('run tests\\fixtures\\ cmd.bat', __DIR__);
         } else {
-            $command = sprintf('cd %s/fixtures; source cmd.sh', __DIR__);
+            $command = sprintf('source tests/fixtures/cmd.sh', __DIR__);
         }
 
         $checkFile = __DIR__.DIRECTORY_SEPARATOR.'fixtures'.DIRECTORY_SEPARATOR.'runShouldRunCommand.log';
