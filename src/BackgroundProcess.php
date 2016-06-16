@@ -66,7 +66,6 @@ class BackgroundProcess
         switch ($this->getOS()) {
             case self::OS_WINDOWS:
                 $shell = new \COM("WScript.Shell");
-                // $exec = $shell->Exec($this->command.' 2> output2.txt &', $output);
                 $exec = $shell->Exec($this->command.' 2> NUL &');
                 $this->pid = (int) $exec->ProcessID;
                 break;
