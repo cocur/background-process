@@ -47,7 +47,7 @@ class BackgroundProcess
      *
      * @codeCoverageIgnore
      */
-    public function __construct($command)
+    public function __construct($command = '')
     {
         $this->command  = $command;
         $this->serverOS = $this->getOS();
@@ -59,14 +59,19 @@ class BackgroundProcess
      * @param string $outputFile File to write the output of the process to; defaults to /dev/null
      *                           currently $outputFile has no effect when used in conjunction with a Windows server
      */
-    public function run($outputFile = '/dev/null')
+    public function run($command, $outputFile = '/dev/null')
     {
+        $this->command = $command ? $command : $this->command;
+
         switch ($this->getOS()) {
             case self::OS_WINDOWS:
-                shell_exec(sprintf('%s &', $this->command, $outputFile));
+                $shell = new \COM("WScript.Shell");
+                // $exec = $shell->Exec($this->command.' 2> output2.txt &', $output);
+                $exec = $shell->Exec($this->command.' 2> NUL &');
+                $this->pid = (int) $exec->ProcessID;
                 break;
             case self::OS_NIX:
-                $this->pid = (int)shell_exec(sprintf('%s > %s 2>&1 & echo $!', $this->command, $outputFile));
+                $this->pid = (int) shell_exec(sprintf('%s > %s 2>&1 & echo $!', $this->command, $outputFile));
                 break;
             default:
                 throw new RuntimeException(sprintf(
@@ -81,19 +86,28 @@ class BackgroundProcess
     /**
      * Returns if the process is currently running.
      *
+     * @param int $pid Process to check (Optional)
+     *
      * @return bool TRUE if the process is running, FALSE if not.
      */
-    public function isRunning()
+    public function isRunning($pid = null)
     {
         $this->checkSupportingOS('Cocur\BackgroundProcess can only check if a process is running on *nix-based '.
-                                 'systems, such as Unix, Linux or Mac OS X. You are running "%s".');
+                                 'systems, such as Unix, Linux or Mac OS X, with partial support on Windows. You are running "%s".');
 
-        try {
-            $result = shell_exec(sprintf('ps %d 2>&1', $this->pid));
-            if (count(preg_split("/\n/", $result)) > 2 && !preg_match('/ERROR: Process ID out of range/', $result)) {
-                return true;
+        $pid = $pid && (int) $pid > 0 ? (int) $pid : $this->pid;
+
+        if ($this->getOS() === self::OS_WINDOWS) {
+            return $this->winCheck($pid);
+        } else {
+            try {
+                $result = shell_exec(sprintf('ps %d 2>&1', $pid));
+                if (count(preg_split("/\n/", $result)) > 2 && !preg_match('/ERROR: Process ID out of range/', $result)) {
+                    return true;
+                }
+            } catch (Exception $e) {
+                return false;
             }
-        } catch (Exception $e) {
         }
 
         return false;
@@ -102,19 +116,28 @@ class BackgroundProcess
     /**
      * Stops the process.
      *
+     * @param int $pid Process to kill (Optional)
+     *
      * @return bool `true` if the processes was stopped, `false` otherwise.
      */
-    public function stop()
+    public function stop($pid = null)
     {
         $this->checkSupportingOS('Cocur\BackgroundProcess can only stop a process on *nix-based systems, such as '.
-                                 'Unix, Linux or Mac OS X. You are running "%s".');
+                                 'Unix, Linux or Mac OS X, with partial support on Windows. You are running "%s".');
 
-        try {
-            $result = shell_exec(sprintf('kill %d 2>&1', $this->pid));
-            if (!preg_match('/No such process/', $result)) {
-                return true;
+        $pid = $pid && (int) $pid > 0 ? (int) $pid : $this->pid;
+
+        if ($this->getOS() === self::OS_WINDOWS) {
+            return $this->winKill($pid);
+        } else {
+            try {
+                $result = shell_exec(sprintf('kill %d 2>&1', $pid));
+                if (!preg_match('/No such process/', $result)) {
+                    return true;
+                }
+            } catch (Exception $e) {
+                return false;
             }
-        } catch (Exception $e) {
         }
 
         return false;
@@ -128,7 +151,7 @@ class BackgroundProcess
     public function getPid()
     {
         $this->checkSupportingOS('Cocur\BackgroundProcess can only return the PID of a process on *nix-based systems, '.
-                                 'such as Unix, Linux or Mac OS X. You are running "%s".');
+                                 'such as Unix, Linux or Mac OS X, with partial support on Windows. You are running "%s".');
 
         return $this->pid;
     }
@@ -158,8 +181,58 @@ class BackgroundProcess
      */
     protected function checkSupportingOS($message)
     {
-        if ($this->getOS() !== self::OS_NIX) {
+        if ($this->getOS() === self::OS_OTHER) {
             throw new RuntimeException(sprintf($message, PHP_OS));
+        }
+    }
+
+    /**
+     * @param int $pid Process to kill (Windows)
+     *
+     * @return boolean Was process killed
+     */
+    protected function winKill($pid = null)
+    {
+        if (!$pid || (int) $pid < 1) {
+            return true;
+        }
+        try {
+            $wmi = new \COM("winmgmts:{impersonationLevel=impersonate}!\\\\.\\root\\cimv2");
+            $procs = $wmi->ExecQuery("SELECT * FROM Win32_Process WHERE ProcessId='".$pid."'");
+            foreach($procs as $proc) {
+                $proc->Terminate();
+            }
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * @param int $pid Process to check if running (Windows)
+     *
+     * @return boolean Is process running
+     */
+    protected function winCheck($pid = null)
+    {
+        if (!$pid || (int) $pid < 1) {
+            return true;
+        }
+        try {
+            $wmi = new \COM("winmgmts:{impersonationLevel=impersonate}!\\\\.\\root\\cimv2");
+            $procs = $wmi->ExecQuery("SELECT * FROM Win32_Process WHERE ProcessId='".$pid."'");
+            // echo count($procs);
+            foreach($procs as $proc) {
+                // echo $proc->Name;
+                // echo $proc->ProcessID;
+                // echo $proc->CommandLine;
+                if ($proc->ProcessID === $pid) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception $e) {
+            return false;
         }
     }
 }
