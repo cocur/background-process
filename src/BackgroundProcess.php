@@ -58,15 +58,16 @@ class BackgroundProcess
      *
      * @param string $outputFile File to write the output of the process to; defaults to /dev/null
      *                           currently $outputFile has no effect when used in conjunction with a Windows server
+     * @param bool $append - set to true if output should be appended to $outputfile
      */
-    public function run($outputFile = '/dev/null')
+    public function run($outputFile = '/dev/null', $append = false)
     {
         switch ($this->getOS()) {
             case self::OS_WINDOWS:
                 shell_exec(sprintf('%s &', $this->command, $outputFile));
                 break;
             case self::OS_NIX:
-                $this->pid = (int)shell_exec(sprintf('%s > %s 2>&1 & echo $!', $this->command, $outputFile));
+                $this->pid = (int)shell_exec(sprintf('%s %s %s 2>&1 & echo $!', $this->command, ($append) ? '>>' : '>', $outputFile));
                 break;
             default:
                 throw new RuntimeException(sprintf(
