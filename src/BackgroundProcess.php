@@ -47,7 +47,7 @@ class BackgroundProcess
      *
      * @codeCoverageIgnore
      */
-    public function __construct($command)
+    public function __construct($command = null)
     {
         $this->command  = $command;
         $this->serverOS = $this->getOS();
@@ -62,6 +62,7 @@ class BackgroundProcess
      */
     public function run($outputFile = '/dev/null', $append = false)
     {
+        if(is_null($this->command)) return;
         switch ($this->getOS()) {
             case self::OS_WINDOWS:
                 shell_exec(sprintf('%s &', $this->command, $outputFile));
@@ -132,6 +133,16 @@ class BackgroundProcess
                                  'such as Unix, Linux or Mac OS X. You are running "%s".');
 
         return $this->pid;
+    }
+    
+    /**
+     * Set the process id.
+     * 
+     * @param $pid
+     */
+    public function setPid($pid)
+    {
+        $this->pid = $pid;
     }
 
     /**
