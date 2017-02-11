@@ -76,6 +76,10 @@ In practice, the following methods will throw an exception if called on a Window
 Change Log
 ----------
 
+### Version 0.7 (11 February 2017)
+
+- [#19](https://github.com/cocur/background-process/pull/19) Create `BackgroundProcess` object from PID (by [socieboy](https://github.com/socieboy) and [florianeckerstorfer](https://github.com/florianeckerstorfer))
+
 ### Version 0.6 (10 July 2016)
 
 - [#17](https://github.com/cocur/background-process/pull/17) Add ability to append to file on Unix/Linux-based systems (by [bpolaszek](https://github.com/bpolaszek))
