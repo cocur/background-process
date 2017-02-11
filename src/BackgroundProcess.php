@@ -62,7 +62,10 @@ class BackgroundProcess
      */
     public function run($outputFile = '/dev/null', $append = false)
     {
-        if(is_null($this->command)) return;
+        if($this->command === null) {
+            return;
+        }
+
         switch ($this->getOS()) {
             case self::OS_WINDOWS:
                 shell_exec(sprintf('%s &', $this->command, $outputFile));
@@ -134,13 +137,13 @@ class BackgroundProcess
 
         return $this->pid;
     }
-    
+
     /**
      * Set the process id.
-     * 
+     *
      * @param $pid
      */
-    public function setPid($pid)
+    protected function setPid($pid)
     {
         $this->pid = $pid;
     }
@@ -173,5 +176,17 @@ class BackgroundProcess
         if ($this->getOS() !== self::OS_NIX) {
             throw new RuntimeException(sprintf($message, PHP_OS));
         }
+    }
+
+    /**
+     * @param int $pid PID of process to resume
+     *
+     * @return Cocur\BackgroundProcess\BackgroundProcess
+     */
+    static public function createFromPID($pid) {
+        $process = new self();
+        $process->setPid($pid);
+
+        return $process;
     }
 }

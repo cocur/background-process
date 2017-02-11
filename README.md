@@ -50,7 +50,7 @@ echo "\nDone.\n";
 
 If the process runs you can stop it:
 
-```
+```php
 // ...
 if ($process->isRunning()) {
     $process->stop();
@@ -72,6 +72,17 @@ In practice, the following methods will throw an exception if called on a Window
 - `Cocur\BackgroundProcess\BackgroundProcess::isRunning()`
 - `Cocur\BackgroundProcess\BackgroundProcess::stop()`
 
+### Create with existing PID
+
+If you have a long running process and store its PID in the database you might want to check at a later point (when you don't have the BackgroundProcess object anymore) whether the process is still running and stop the process.
+
+```php
+use Cocur\BackgroundProcess\BackgroundProcess;
+
+$process = BackgroundProcess::createFromPID($pid);
+$process->isRunning(); // -> true
+$process->stop();      // -> true
+```
 
 Change Log
 ----------
