@@ -182,4 +182,25 @@ class BackgroundProcessTest extends \PHPUnit_Framework_TestCase
         $process = new BackgroundProcess('sleep 1');
         $process->stop();
     }
+
+    /**
+     * @test
+     * @covers Cocur\BackgroundProcess\BackgroundProcess::createFromPID()
+     */
+    public function createFromPIDShouldCreateObjectFromPID()
+    {
+        if (preg_match('/^WIN/', PHP_OS)) {
+            $this->markTestSkipped('Cocur\BackgroundProcess\BackgroundProcess::createFromPID() is not supported on Windows.');
+
+            return;
+        }
+        $process = new BackgroundProcess('sleep 1');
+        $process->run();
+        $pid = $process->getPid();
+
+        $newProcess = BackgroundProcess::createFromPID($pid);
+
+        $this->assertEquals($pid, $newProcess->getPid());
+        $this->assertTrue($newProcess->stop());
+    }
 }
