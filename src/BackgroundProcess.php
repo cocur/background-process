@@ -144,7 +144,6 @@ class BackgroundProcess {
         switch ($this->getOS()) {
             case self::OS_WINDOWS:
                 try {
-                    echo ">>";
                     $result = shell_exec("taskkill /F /PID $this->pid 2>&1");
                     if (preg_match('/SUCCESS: The process with PID ' . $this->pid . ' has been terminated./', $result)) {
                         return true;
