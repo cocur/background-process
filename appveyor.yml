@@ -15,8 +15,8 @@ environment:
 
 install:
   - cinst -y OpenSSL.Light
-  - cinst -y php
-  - cd c:\tools\php
+  - cinst -y php --ignore-dependencies
+  - cd c:\tools\php72
   - copy php.ini-production php.ini /Y
   - echo date.timezone="UTC" >> php.ini
   - echo extension_dir=ext >> php.ini
@@ -25,6 +25,7 @@ install:
   - echo extension=php_fileinfo.dll >> php.ini
   - echo memory_limit=1G >> php.ini
   - cd c:\projects\cocur\background-process
+  - refreshenv
   - php -r "readfile('http://getcomposer.org/installer');" | php
   - php composer.phar update %COMPOSER_FLAGS% --no-interaction --no-progress
 
