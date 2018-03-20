@@ -115,7 +115,7 @@ class BackgroundProcess
                                  'Unix, Linux or Mac OS X. You are running "%s".');
 
         try {
-            $result = shell_exec(sprintf('kill %d 2>&1', $this->pid));
+            $result = shell_exec(sprintf('kill -9 %d 2>&1', $this->pid));
             if (!preg_match('/No such process/', $result)) {
                 return true;
             }
