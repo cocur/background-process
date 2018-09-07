@@ -146,6 +146,7 @@ class BackgroundProcess
     protected function setPid($pid)
     {
         $this->pid = $pid;
+        return $this;
     }
 
     /**
