@@ -94,8 +94,8 @@ class BackgroundProcess
                                  'systems, such as Unix, Linux or Mac OS X. You are running "%s".');
 
         try {
-            $result = shell_exec(sprintf('ps %d 2>&1', $this->pid));
-            if (count(preg_split("/\n/", $result)) > 2 && !preg_match('/ERROR: Process ID out of range/', $result)) {
+            $result = shell_exec(sprintf('kill -0 %d 2>&1', $this->pid));
+            if (count(preg_split("/\n/", $result)) < 2 && !preg_match('/ERROR: Process ID out of range/', $result)) {
                 return true;
             }
         } catch (Exception $e) {
