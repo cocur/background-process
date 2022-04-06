@@ -116,7 +116,7 @@ class BackgroundProcess
 
         try {
             $result = shell_exec(sprintf('kill %d 2>&1', $this->pid));
-            if (!preg_match('/No such process/', $result)) {
+            if (!preg_match('/No such process/', $result ?? '')) {
                 return true;
             }
         } catch (Exception $e) {
